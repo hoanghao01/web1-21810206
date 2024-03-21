@@ -59,8 +59,8 @@
                             <a class="nav-link" href="contacts.html">Contacts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="modal"
-                            data-bs-target="#modalLogin">Login</a>
+                            <a class="nav-link linkLogin" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
+                            <a class="nav-link linkLogout" href="#" onclick="logout()" style="display: none;">Log out</a>
                         </li>
 
                     </ul>
@@ -134,7 +134,8 @@
                                 id="email"
                                 placeholder=""
                                 required
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\[a-z]{2,}$"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  
+                                                         
                             />
                         </div>
                     </div>
@@ -202,8 +203,8 @@
                 <a class="nav-link active" href="contacts.html">Contacts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-bs-toggle="modal"
-                data-bs-target="#modalLogin">Login</a>
+                <a class="nav-link linkLogin" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
+                <a class="nav-link linkLogout" href="#" onclick="logout()" style="display: none;">Log out</a>
             </li>
         </ul>
         <p class="text-white-50">Copyright &copy; 2024 by Nguyen Hoang Hao - 21810206</p>
@@ -239,7 +240,7 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="post" id="formLogin">
+                    <form action="#" method="post" id="formLogin" onsubmit="login(event)">
                         <h3 class="text-center">Login Form</h3>
                         <div class="mb-3">
                             <input type="text" name="username" id="username" placeholder="Username" class="form-control">
@@ -250,7 +251,8 @@
                         <button type="submit" class="form-control btn">Login</button>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
+                    <div class="text-danger" id="errorMessage"></div>
                 </div>
             </div>
         </div>
@@ -273,10 +275,12 @@
 
     <script src="js/21810206.js"></script>
     <script>
+        checkLogin();
         function onSubmit(e) {
             e.preventDefault(e);
-            grecaptcha.enterprise.ready(async () => {
-                const token = await grecaptcha.enterprise.execute('6LdKh54pAAAAACbpHouNHvm4UveRvyC75YUQmRxR', {action: 'submit'});
+            
+            grecaptcha.enterprise.ready(async () => { 
+                const token = await grecaptcha.enterprise.execute('6LdKh54pAAAAACbpHouNHvm4UveRvyC75YUQmRxR', { action: 'submit' });
                 let response = await fetch('verify.php', {
                     method: 'POST',
                     headers: {
@@ -302,7 +306,7 @@
             
             let responseMessage = document.getElementById('responseMessage');
             try {
-                let token = await getAuthenticatedToken('test', '1c3cr3@m');
+                let token = await getAuthenticateToken('test', '1c3cr3@m');
                 let postData = {
                     name: document.getElementById('name').value,
                     email: document.getElementById('email').value,

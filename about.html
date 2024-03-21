@@ -60,8 +60,8 @@
                             <a class="nav-link" href="contacts.html">Contacts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="modal"
-                            data-bs-target="#modalLogin">Login</a>
+                            <a class="nav-link linkLogin" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
+                            <a class="nav-link linkLogout" href="#" onclick="logout()" style="display: none;">Log out</a>
                         </li>
 
                     </ul>
@@ -147,8 +147,8 @@
                 <a class="nav-link" href="contacts.html">Contacts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-bs-toggle="modal"
-                data-bs-target="#modalLogin">Login</a>
+                <a class="nav-link linkLogin" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
+                <a class="nav-link linkLogout" href="#" onclick="logout()" style="display: none;">Log out</a>
             </li>
         </ul>
         <p class="text-white-50">Copyright &copy; 2024 by Nguyen Hoang Hao - 21810206</p>
@@ -184,7 +184,7 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="post" id="formLogin">
+                    <form action="#" method="post" id="formLogin" onsubmit="login(event)">
                         <h3 class="text-center">Login Form</h3>
                         <div class="mb-3">
                             <input type="text" name="username" id="username" placeholder="Username" class="form-control">
@@ -195,7 +195,8 @@
                         <button type="submit" class="form-control btn">Login</button>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
+                    <div class="text-danger" id="errorMessage"></div>
                 </div>
             </div>
         </div>
@@ -301,6 +302,7 @@
 
 
     <script>
+        checkLogin();
         loadData('aboutus', 'about-us-template', 'about-us');
         loadData('visions', 'visions-template','visions'); 
         loadData('testimonials', 'testimonials-template', 'testimonials');
