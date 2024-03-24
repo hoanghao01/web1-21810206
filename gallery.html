@@ -42,7 +42,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="menu-header">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
+                        <li class="nav-item ">
                             <a class="nav-link " href="index.html" aria-current="page-hidden">Home
                                 <span class="visually-hidden">(current)</span></a>
                         </li>
@@ -64,9 +64,9 @@
                         </li>
 
                     </ul>
-                    <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch">
+                    <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch" method="get" action="search.html">
                         <input class="form-control ms-3     
-                        border-0" type="text" placeholder="Search" />
+                        border-0" type="text" placeholder="Search" name="keyword" id="keyword" required/>
                         <button class="btn my-2 my-sm-0 border-0" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -101,7 +101,7 @@
             class="nav justify-content-center py-3" id="menu-footer"
         >
             <li class="nav-item">
-                <a class="nav-link active" href="index.html" aria-current="page"
+                <a class="nav-link" href="index.html" aria-current="page"
                     >Home</a
                 >
             </li>
