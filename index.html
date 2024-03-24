@@ -22,7 +22,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 
     <!--Web1 CSS-->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/21810206.min.css">
 </head>
 
 <body>
@@ -57,14 +57,17 @@
                             <a class="nav-link" href="contacts.html">Contacts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link linkLogin" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
-                            <a class="nav-link linkLogout" href="#" onclick="logout()" style="display: none;">Log out</a>
+                            <a class="nav-link linkLogin" href="#" data-bs-toggle="modal"
+                                data-bs-target="#modalLogin">Login</a>
+                            <a class="nav-link linkLogout" href="#" onclick="logout()" style="display: none;">Log
+                                out</a>
                         </li>
 
                     </ul>
-                    <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch" method="get" action="search.html">
+                    <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch" method="get"
+                        action="search.html">
                         <input class="form-control ms-3     
-                        border-0" type="text" placeholder="Search" name="keyword" id="keyword" required/>
+                        border-0" type="text" placeholder="Search" name="keyword" id="keyword" required />
                         <button class="btn my-2 my-sm-0 border-0" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -198,8 +201,8 @@
                     <form action="#" method="post" id="formLogin" onsubmit="login(event)">
                         <h3 class="text-center">Login Form</h3>
                         <div class="mb-3">
-                            <input type="text" name="username" id="username" placeholder="Username"
-                                class="form-control" required>
+                            <input type="text" name="username" id="username" placeholder="Username" class="form-control"
+                                required>
                         </div>
                         <div class="mb-3">
                             <input type="password" name="password" id="password" placeholder="Password"
@@ -233,81 +236,35 @@
         crossorigin="anonymous"></script>
 
     <!--HandlebarsJS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
-        integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="js/21810206.js"></script>
-
-    <!--Products template-->
-    <script id="products-template" type="text/x-handlebars-template">
-        <div class="row text-center py-5">
-            {{#each data}}
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <img src="{{imagepath}}" alt="{{name}}"
-                onmouseover="setActiveImagePath(this, '{{imagepath}}')" 
-                onmouseout="setActiveImagePath(this, '{{imagepath}}', false)">
-                <h3>{{name}}</h3>
-                <p class="text-black-50">{{summary}}</p>
-                <a class="readmore btn btn-link pt-0" href="#"
-                    onclick="loadData('products/{{id}}', 'details-template','content')"
-                >Read more</a>
-            </div>
-            {{/each}}           
-        </div>
-    </script>
-
-    <!--News template-->
-    <script id="news-template" type="text/x-handlebars-template">
-        <h1 class="text-black-10">News</h1>
-        <div class="row py-3">
-            {{#each data}}
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="float-start me-3">
-                    <div class="date text-white text-center rounded-4 py-1">
-                        <h3>{{date}}</h3>
-                    </div>
-                    <a href="#" class="btn btn-link readmore ps-0"
-                        onclick="loadData('news/{{id}}', 'details-template', 'content')"
-                    >Read more</a>
-                </div>
-                <div>
-                    <h3>{{name}}</h3>
-                    <p class="text-black-50">{{summary}}</p>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-    </script>
-
-    <!--details-template-->
-    <script id="details-template" type="text/x-handlebars-template">
-        <section class="container fuild" id="banner-small"></section>
-        {{#each data}} 
-        <section class="container py-5">
-            <h1 class="pb-3">{{name}}</h1>
-            <div class="text-black-50">{{{description}}}</div>
-        </section>
-        {{/each}}
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.runtime.min.js"    integrity="sha512-WUaZk9J3oknQdKPT2wAfA0gEBG2371l1ACjiynLA/X28p07n1u59VFk7q1i83/bo7N9rqVdYKlnvwAAiwL36jQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/index.templates.min.js"></script>
+    <script src="js/21810206.min.js"></script>
 
     <script>
-        checkLogin();
-        //load data products
-        loadData('products', 'products-template', 'products');
-        //load data news
-        loadData('news', 'news-template', 'news');
+        let searchParam = new URLSearchParams(location.search);
+        let request = searchParam.get('request');
+        if (request) {
+           loadData(request, 'details-template', 'content');
+        }
+        else {
+            checkLogin();
+            //load data products
+            loadData('products', 'products-template', 'products');
+            //load data news
+            loadData('news', 'news-template', 'news');
+        }
 
         function setActiveImagePath(img, imagePath, isActive = true) {
-            if(isActive) {
+            if (isActive) {
                 img.src = imagePath.replace('.', '-active.');
             }
             else {
                 img.src = imagePath;
             }
             img.nextElementSibling.classList.toggle('web1-text-blue');
-            
+
         }
-    
+
     </script>
 </body>
 
